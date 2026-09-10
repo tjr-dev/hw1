@@ -19,27 +19,19 @@ void split(Node*& in, Node*& odds, Node*& evens)
   if (in == nullptr) {
     return;
   }
-  if (in->next != nullptr) {
-    split(in->next, odds, evens);
-  }
+  Node* temp = in;
+  in = in->next;
+  
+  split(in, odds, evens);
 
-  if (in->next == nullptr) { // base case, last node
-    if (in->value % 2 == 0) {
-      evens = in;
-    } else {
-      odds = in;
-    }
-    return;
-  }
-
-  if (in->value % 2 == 0) {
+  if (temp->value % 2 == 0) {
     // even
-    in->next = evens;
-    evens = in;
+    temp->next = evens;
+    evens = temp;
     
   } else {
-    in->next = odds; 
-    odds = in;
+    temp->next = odds; 
+    odds = temp;
     // odd
   }
   return;
